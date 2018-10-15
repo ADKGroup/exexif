@@ -110,10 +110,12 @@ defmodule Exexif.Decode do
   defp orientation(6), do: "Rotate 90 CW"
   defp orientation(7), do: "Mirror horizontal and rotate 90 CW"
   defp orientation(8), do: "Rotate 270 CW"
+  defp orientation(_), do: "Unsupported"
 
   defp resolution(1), do: "None"
   defp resolution(2), do: "Pixels/in"
   defp resolution(3), do: "Pixels/cm"
+  defp resolution(_), do: "Unsupported"
 
   defp exposure_program(0), do: "Unknown"
   defp exposure_program(1), do: "Manual"
@@ -125,6 +127,7 @@ defmodule Exexif.Decode do
   defp exposure_program(7), do: "Portrait"
   defp exposure_program(8), do: "Landscape"
   defp exposure_program(9), do: "Bulb"
+  defp exposure_program(_), do: "Unsupported"
 
   defp sensitivity_type(0), do: "Unknown"
   defp sensitivity_type(1), do: "Standard Output Sensitivity"
@@ -136,6 +139,8 @@ defmodule Exexif.Decode do
 
   defp sensitivity_type(7),
     do: "Standard Output Sensitivity, Recommended Exposure Index and ISO Speed"
+
+  defp sensitivity_type(_), do: "Unsupported"
 
   @comp_conf {"-", "Y", "Cb", "Cr", "R", "G", "B"}
 
@@ -160,12 +165,14 @@ defmodule Exexif.Decode do
   defp color_space(0xFFFD), do: "Wide Gamut RGB"
   defp color_space(0xFFFE), do: "ICC Profile"
   defp color_space(0xFFFF), do: "Uncalibrated"
+  defp color_space(_), do: "Unsupported"
 
   defp focal_plane_resolution_unit(1), do: "None"
   defp focal_plane_resolution_unit(2), do: "inches"
   defp focal_plane_resolution_unit(3), do: "cm"
   defp focal_plane_resolution_unit(4), do: "mm"
   defp focal_plane_resolution_unit(5), do: "um"
+  defp focal_plane_resolution_unit(_), do: "Unsupported"
 
   defp sensing_method(1), do: "Not defined"
   defp sensing_method(2), do: "One-chip color area"
@@ -174,53 +181,63 @@ defmodule Exexif.Decode do
   defp sensing_method(5), do: "Color sequential area"
   defp sensing_method(7), do: "Trilinear"
   defp sensing_method(8), do: "Color sequential linear"
-  defp sensing_method(_), do: "Unrecognized sensing method"
+  defp sensing_method(_), do: "Unsupported"
 
   defp file_source(1), do: "Film Scanner"
   defp file_source(2), do: "Reflection Print Scanner"
   defp file_source(3), do: "Digital Camera"
   defp file_source(0x03000000), do: "Sigma Digital Camera"
+  defp file_source(_), do: "Unsupported"
 
   defp custom_rendered(0), do: "Normal"
   defp custom_rendered(1), do: "Custom"
   defp custom_rendered(v) when is_number(v), do: "Unknown (#{v})"
 
   defp scene_type(1), do: "Directly photographed"
+  defp scene_type(_), do: "Unsupported"
 
   defp exposure_mode(0), do: "Auto"
   defp exposure_mode(1), do: "Manual"
   defp exposure_mode(2), do: "Auto bracket"
+  defp exposure_mode(_), do: "Unsupported"
 
   defp white_balance(0), do: "Auto"
   defp white_balance(1), do: "Manual"
+  defp white_balance(_), do: "Unsupported"
 
   defp scene_capture_type(0), do: "Standard"
   defp scene_capture_type(1), do: "Landscape"
   defp scene_capture_type(2), do: "Portrait"
   defp scene_capture_type(3), do: "Night"
+  defp scene_capture_type(_), do: "Unsupported"
 
   defp gain_control(0), do: "None"
   defp gain_control(1), do: "Low gain up"
   defp gain_control(2), do: "High gain up"
   defp gain_control(3), do: "Low gain down"
   defp gain_control(4), do: "High gain down"
+  defp gain_control(_), do: "Unsupported"
 
   defp contrast(0), do: "Normal"
   defp contrast(1), do: "Low"
   defp contrast(2), do: "High"
+  defp contrast(_), do: "Unsupported"
 
   defp saturation(0), do: "Normal"
   defp saturation(1), do: "Low"
   defp saturation(2), do: "High"
+  defp saturation(_), do: "Unsupported"
 
   defp sharpness(0), do: "Normal"
   defp sharpness(1), do: "Soft"
   defp sharpness(2), do: "Hard"
+  defp sharpness(_), do: "Unsupported"
 
   defp subject_distance_range(0), do: "Unknown"
   defp subject_distance_range(1), do: "Macro"
   defp subject_distance_range(2), do: "Close"
   defp subject_distance_range(3), do: "Distant"
+  defp subject_distance_range(_), do: "Unsupported"
 
   defp flash(0x0), do: "No Flash"
   defp flash(0x1), do: "Fired"
@@ -249,6 +266,7 @@ defmodule Exexif.Decode do
   defp flash(0x59), do: "Auto, Fired, Red-eye reduction"
   defp flash(0x5D), do: "Auto, Fired, Red-eye reduction, Return not detected"
   defp flash(0x5F), do: "Auto, Fired, Red-eye reduction, Return detected"
+  defp flash(_), do: "Unsupported"
 
   defp version([?0, major, minor1, minor2]) do
     <<major, ?., minor1, minor2>>
